@@ -4,7 +4,7 @@ Dist::Zilla::Plugin::Template::Toolkit - process template files in your dist usi
 
 =head1 VERSION
 
-version 0.02
+version 0.01
 
 =head1 SYNOPSIS
 

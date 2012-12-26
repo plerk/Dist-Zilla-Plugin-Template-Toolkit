@@ -233,7 +233,7 @@ sub munge_files
     my($template,$file) = @$item;
     my $output = '';
     my $input = $template->content;
-    $self->_tt->process(\$input, $self->_vars, \$output);
+    $self->_tt->process(\$input, $self->_vars, \$output) || die $self->_tt->error();
     $file->content($output);
   }
   $self->prune_files;
