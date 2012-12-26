@@ -1,1 +1,16 @@
---- {}
+---
+pod_spelling_system:
+  stopwords:
+    - dist.ini
+    - FileFinder
+    - TT
+    - .tt
+    - filenames
+    - munge
+    - JavaScript
+    - ShareDir
+    - plugins
+    - version.js.tt
+    - .js.tt
+    - version.js
+    - .js
