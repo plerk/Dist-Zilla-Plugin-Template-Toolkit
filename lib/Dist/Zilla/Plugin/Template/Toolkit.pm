@@ -160,7 +160,7 @@ sub gather_files
     defined $self->finder 
     ? $self->zilla->find_files($self->finder)
     : [ grep { $_->name =~ /\.tt$/ } @{ $self->zilla->files } ];
-
+    
   foreach my $template (@$list)
   {
     my $filename = do {
@@ -186,8 +186,8 @@ sub gather_files
         },
       );
       $self->add_file($file);
-      push @{ $self->_prune_list }, $template if $self->prune;
     }
+    push @{ $self->_prune_list }, $template if $self->prune;
   }
 }
 
