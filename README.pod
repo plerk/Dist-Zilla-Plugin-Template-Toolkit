@@ -45,7 +45,8 @@ which generates a C<Foo.pm> for each C<Foo.pm.tt>.
 
 =head2 trim
 
-Passed as C<TRIM> to the constructor for L<Template>.
+Passed as C<TRIM> to the constructor for L<Template>.  Included for compatability
+with L<Dist::Zilla::Plugin::Template::Tiny>, but it is better to use C<TRIM> instead.
 
 =head2 var
 
@@ -63,6 +64,19 @@ If set to a true value, existing files in the source tree will be replaced, if n
 =head2 prune
 
 If set to a true value, the original template files will NOT be included in the built distribution.
+
+=head2 Template options
+
+Any attributes which are in C<ALL CAPS> will be passed directly
+into the constructor of L<Template> (see its documentation for
+details).  example:
+
+ [Template::Toolkit]
+ INCLUDE_PATH = /search/path
+ INTERPOLATE  = 1
+ POST_CHOMP   = 1
+ PRE_PROCESS  = header
+ EVAL_PERL    = 1
 
 =head1 METHODS
 
@@ -111,7 +125,7 @@ Next I use this plugin to process .js.tt files in the appropriate directory, so 
 Finally, I create a version.js.tt file
 
  if(PlugAuth === undefined) var PlugAuth = {};
- if(PlugAuth === undefined) PlugAuth.UI = {};
+ if(PlugAuth.UI === undefined) PlugAuth.UI = {};
  
  PlugAuth.UI.Name = 'PlugAuth WebUI';
  PlugAuth.UI.VERSION = '[% dzil.version %]';
