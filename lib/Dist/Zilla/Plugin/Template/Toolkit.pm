@@ -32,6 +32,26 @@ with 'Dist::Zilla::Role::FilePruner';
 
 use namespace::autoclean;
 
+has _template_options => (
+  is       => 'ro',
+  isa      => 'HashRef',
+  required => 1,
+);
+
+sub BUILDARGS
+{
+  my ($class, @arg) = @_;
+  my %opt = ref $arg[0] ? %{$arg[0]} : @arg;
+  
+  # extract the options that are all caps and put them in _template_options
+  $opt{_template_options} = { map { $_ => delete $opt{$_} } grep /^[A-Z_]+$/, keys %opt };
+  
+  $opt{_template_options}->{TRIM} = delete $opt{TRIM}
+    if defined $opt{TRIM} && ! defined $opt{_template_options}->{TRIM};
+  
+  return \%opt;
+}
+
 =head1 ATTRIBUTES
 
 =head2 finder
@@ -72,15 +92,8 @@ has output_regex => (
 
 =head2 trim
 
-Passed as C<TRIM> to the constructor for L<Template>.
-
-=cut
-
-has trim => (
-  is      => 'ro',
-  isa     => 'Bool',
-  default => 0,
-);
+Passed as C<TRIM> to the constructor for L<Template>.  Included for compatability
+with L<Dist::Zilla::Plugin::Template::Tiny>, but it is better to use C<TRIM> instead.
 
 =head2 var
 
@@ -122,7 +135,7 @@ has _tt => (
   isa     => 'Template',
   lazy    => 1,
   default => sub {
-    Template->new( TRIM => shift->trim );
+    Template->new( shift->_template_options );
   },
 );
 
@@ -143,6 +156,23 @@ has _prune_list => (
   isa     => 'ArrayRef[Dist::Zilla::Role::File]',
   default => sub { [] },
 );
+
+=head2 Template options
+
+Any attributes which are in C<ALL CAPS> will be passed directly
+into the constructor of L<Template> (see its documentation for
+details).  example:
+
+ [Template::Toolkit]
+ INCLUDE_PATH = /search/path
+ INTERPOLATE  = 1
+ POST_CHOMP   = 1
+ PRE_PROCESS  = header
+ EVAL_PERL    = 1
+
+=cut
+
+
 
 =head1 METHODS
 
@@ -264,7 +294,7 @@ Returns list of attributes that can be specified multiple times.
 
 =cut
 
-sub mvp_multivalue_args { qw(var) }
+sub mvp_multivalue_args { qw( var opt ) }
 
 __PACKAGE__->meta->make_immutable;
 
