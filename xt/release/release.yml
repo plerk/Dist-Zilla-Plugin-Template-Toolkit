@@ -14,3 +14,10 @@ pod_spelling_system:
     - .js.tt
     - version.js
     - .js
+    - ini
+    - js
+    - tt
+
+pod_coverage:
+  private:
+    - .*#BUILDARGS

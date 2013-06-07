@@ -92,7 +92,7 @@ has output_regex => (
 
 =head2 trim
 
-Passed as C<TRIM> to the constructor for L<Template>.  Included for compatability
+Passed as C<TRIM> to the constructor for L<Template>.  Included for compatibility
 with L<Dist::Zilla::Plugin::Template::Tiny>, but it is better to use C<TRIM> instead.
 
 =head2 var

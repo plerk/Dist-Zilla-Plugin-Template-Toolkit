@@ -1,5 +1,4 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
-0.01
   - initial version forked from Dist::Zilla::Plugin::Template::Tiny 0.02
