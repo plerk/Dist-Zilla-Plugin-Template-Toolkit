@@ -1,3 +1,5 @@
+=pod
+
 =head1 NAME
 
 Dist::Zilla::Plugin::Template::Toolkit - process template files in your dist using Template Toolkit
