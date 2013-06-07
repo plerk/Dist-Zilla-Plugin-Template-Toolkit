@@ -1,4 +1,6 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.01      2013-06-07 15:31:39 EST5EDT
   - initial version forked from Dist::Zilla::Plugin::Template::Tiny 0.02
